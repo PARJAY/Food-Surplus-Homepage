@@ -3,10 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <title>Welcome to Food Surplus Hotel Web</title>
 
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/10.10.0/firebase-app-compat.js"></script>
+
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/10.10.0/firebase-auth-compat.js"></script>
     <script defer src="/__/firebase/10.10.0/firebase-database-compat.js"></script>
@@ -14,14 +15,15 @@
     <script defer src="/__/firebase/10.10.0/firebase-functions-compat.js"></script>
     <script defer src="/__/firebase/10.10.0/firebase-messaging-compat.js"></script>
     <script defer src="/__/firebase/10.10.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.10.0/firebase-analytics-compat.js"></script>
+    <!-- <script defer src="/__/firebase/10.10.0/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/10.10.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.10.0/firebase-performance-compat.js"></script>
+    <script defer src="/__/firebase/10.10.0/firebase-performance-compat.js"></script> -->
     <!-- 
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+    <!-- <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script> -->
 
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
@@ -40,21 +42,57 @@
   </head>
   <body>
     <div id="message">
-      <h2>Admin Web</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
+      <h2>Welcome</h2>
+      <h1>Firebase command Guidline</h1>
       <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
       <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+
+      <img id="get-image-from-firebase-storage" width="500" height="600">
     </div>
     <p id="load">Firebase SDK Loading&hellip;</p>
 
-    <script>
+    <span id="user-list">
+      
+    </span>
+
+    <form id="add-user-form" >
+      <input type="text" name="name" placeholder="User name">
+      <button>Add User</button>
+    </form>
+
+    <form id="update-user-name-form" >
+      <input type="text" name="name" placeholder="User name">
+      <button>Update User Name</button>
+    </form>
+    
+    <script type="module">
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCXZOpejbtVBD01z6n_E0cVqRsATq1xTws",
+        authDomain: "nofwa-indonesia.firebaseapp.com",
+        projectId: "nofwa-indonesia",
+        storageBucket: "nofwa-indonesia.appspot.com",
+        messagingSenderId: "608371446284",
+        appId: "1:608371446284:web:ec6af0cba6c012bf599429",
+        measurementId: "G-HE92R15VSY"
+      };
+
+      // firebase.initializeApp(firebaseConfig);
+      
+      let imageView = document.getElementById('get-image-from-firebase-storage');
+
+      firebase.storage().ref('WhatsApp Image 2023-12-09 at 20.32.55.jpeg').getDownloadURL().then( imgUrl => {
+          imageView.src = imgUrl;
+      })
+
       document.addEventListener('DOMContentLoaded', function() {
         const loadEl = document.querySelector('#load');
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
         // // The Firebase SDK is initialized and available here!
         //
         // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        firebase.database().ref('/path/to/ref').on('value', snapshot => { });
         // firebase.firestore().doc('/foo/bar').get().then(() => { });
         // firebase.functions().httpsCallable('yourFunction')().then(() => { });
         // firebase.messaging().requestPermission().then(() => { });
@@ -64,7 +102,7 @@
         // firebase.performance(); // call to activate
         //
         // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
+        
         try {
           let app = firebase.app();
           let features = [
@@ -85,5 +123,8 @@
         }
       });
     </script>
+
+    <script type="module" src="script.js" defer></script>
+
   </body>
 </html>
