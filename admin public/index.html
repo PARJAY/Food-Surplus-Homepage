@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome to Food Surplus Hotel Web</title>
 
+    <link rel="stylesheet" href="style.css">
     <!-- update the version number as needed -->
     <script defer src="/__/firebase/10.10.0/firebase-app-compat.js"></script>
 
@@ -24,7 +25,7 @@
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <!-- <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script> -->
-
+    
     <style media="screen">
       body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
       #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
@@ -49,6 +50,16 @@
 
       <img id="get-image-from-firebase-storage" width="500" height="600">
     </div>
+
+    <!-- Add Google Sign-In button with Google icon --> 
+    <button type="button" id="login-hotel" class="login-with-google-btn" >
+      Hotel Sign in with Google
+    </button>
+
+    <button type="button" id="login-admin" class="login-with-google-btn" >
+      Admin Sign in with Google
+    </button>
+
     <p id="load">Firebase SDK Loading&hellip;</p>
 
     <span id="user-list">
@@ -64,6 +75,8 @@
       <input type="text" name="name" placeholder="User name">
       <button>Update User Name</button>
     </form>
+
+    <a href="login.html"></a>
     
     <script type="module">
       // Your web app's Firebase configuration
