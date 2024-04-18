@@ -10,7 +10,7 @@ const updateUserNameForm = document.getElementById('update-user-name-form');
 
 addUserForm.addEventListener('submit', (e) => {
     e. preventDefault();
-    db.collection (userCollection). add ({
+    db.collection (userCollection).add ({
         name: addUserForm.name.value
     })
     addUserForm.name.value = "";
@@ -114,11 +114,17 @@ db.collection(userCollection).orderBy(userKeyName).onSnapshot (snapshot => {
     })
 })
 
+
+// auth script
 const loginAdmin = document.getElementById('login-admin');
 const loginHotel = document.getElementById('login-hotel');
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
+var user;
+
+
+const hotelCollection = "Hotel"
 loginAdmin.addEventListener('click', (e) => {
     firebase.auth().signInWithPopup(provider).then((result) => {
         /** @type {firebase.auth.OAuthCredential} */
@@ -127,12 +133,35 @@ loginAdmin.addEventListener('click', (e) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = credential.accessToken;
         // The signed-in user info.
-        var user = result.user;
+        user = result.user;
         // IdP data available in result.additionalUserInfo.profile.
         // ...
 
         console.log("Sucess")
         console.log(user)
+        
+        console.log(`user.displayName : ${user.displayName}`)
+        console.log(`user.email : ${user.email}`)
+        console.log(`user.uid : ${user.uid}`)
+        console.log(`user.photoURL : ${user.photoURL}`)
+
+        var existingUser
+
+        // firebase auth add firestore data guide
+        db.collection(hotelCollection).doc(user.uid).get().then((querySnapshot) => {
+            if (querySnapshot.exists) console.log("Hotel user already exist :", querySnapshot.data());
+            else {
+                db.collection(hotelCollection).doc(user.uid).set({
+                    name: user.displayName,
+                    email: user.email
+                }).then(() => {
+                    console.log("New hotel data added for user!");
+                }).catch((error) => {
+                    console.error("Error adding hotel data:", error);
+                });
+            }
+        });
+        
     }).catch((error) => {
         // Handle Errors here.
         var errorCode = error.code;
